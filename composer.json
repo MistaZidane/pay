@@ -1,21 +1,17 @@
 {
-    "name": "mista/pay",
-    "type": "library",
-    "description": "Your package description goes here",
-    "keywords": [
-        "relevant",
-        "tags",
-        "go",
-        "here"
-    ],
-    "homepage": "https://yourcompany.com",
-    "license": "MIT",
+    "name": "mistazidane/pay",
     "authors": [
         {
-            "name": "MistaZidane",
-            "email": "ntokungwiazidane@yahoo.com",
-            "homepage": "http://seld.be",
-            "role": "Developer"
+            "name": "mistazidane",
+            "email": "ntokungwiazidane@yahoo.com"
         }
-    ]
+    ],
+        "minimum-stability": "dev",
+        "autoload": {
+            "psr-4": {
+                "App\\": "app/",
+                "SevenPay\\UnitPay\\": "src"
+            }
+        },
+    "require": {}
 }
