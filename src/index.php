@@ -1,6 +1,4 @@
 <?php
-?>
-<?php
 namespace SevenPay;
 class PayUnit
 {
@@ -63,6 +61,6 @@ class PayUnit
         }
     }
 }
-$payment = new PayUnit("7c4a8d09ca3762af61e59520943dc26494f8941b", "easylight-payments@2020*", 'myeasylight-payments', 'https://sturep.herokuapp.com', '1500');
-$payment->MakePayment();
-?> 
+// $payment = new PayUnit("7c4a8d09ca3762af61e59520943dc26494f8941b", "easylight-payments@2020*", 'myeasylight-payments', 'https://sturep.herokuapp.com', '1500');
+// $payment->MakePayment();
+?>

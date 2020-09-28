@@ -1,17 +1,17 @@
 {
     "name": "mistazidane/pay",
+    "description": "dklsjlfldskgjkf",
     "authors": [
         {
             "name": "mistazidane",
             "email": "ntokungwiazidane@yahoo.com"
         }
     ],
-        "minimum-stability": "dev",
-        "autoload": {
-            "psr-4": {
-                "App\\": "app/",
-                "SevenPay\\UnitPay\\": "src"
-            }
-        },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "SevenPay\\": "src/"
+        }
+    },
     "require": {}
 }
