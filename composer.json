@@ -1,17 +1,17 @@
 {
-    "name": "mistazidane/pay",
-    "description": "dklsjlfldskgjkf",
-    "authors": [
-        {
-            "name": "mistazidane",
-            "email": "ntokungwiazidane@yahoo.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "SevenPay\\": "src/"
-        }
-    },
-    "require": {}
+  "name": "mistazidane/pay",
+  "description": "Seven Pay PHP SDK",
+  "authors": [
+    {
+      "name": "mistazidane",
+      "email": "ntokungwiazidane@yahoo.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "SevenPay\\": "src/"
+    }
+  },
+  "require": {}
 }
