@@ -1,5 +1,5 @@
 <?php
-namespace SevenPay;
+namespace SevenPay\PayUnit;
 class PayUnit
 {
     public $apiKey;
@@ -33,7 +33,7 @@ class PayUnit
         $postRequest         = array(
             "bills" => array(
                 array(
-                    "amount" => 1500,
+                    "amount" => $this->amount,
                     "bill_ref" => 360582888
                 )
             ),
@@ -54,13 +54,15 @@ class PayUnit
         $apiResponse = curl_exec($cURLConnection);
         curl_close($cURLConnection);
         $jsonArrayResponse = json_decode($apiResponse);
-        if ($jsonArrayResponse->status == 201) {
-            header("Location: {$jsonArrayResponse->transaction_url}");
-        } else {
-            echo ("failed");
-        }
+    if(isset($jsonArrayResponse->transaction_url)){
+        echo("dfdgdg");
+        //die();
+          header("Location: {$jsonArrayResponse->transaction_url}");
+        exit();  
+    }
+    else{
+        echo("Transaction Failed");
+    }
     }
 }
-// $payment = new PayUnit("7c4a8d09ca3762af61e59520943dc26494f8941b", "easylight-payments@2020*", 'myeasylight-payments', 'https://sturep.herokuapp.com', '1500');
-// $payment->MakePayment();
 ?>
