@@ -35,4 +35,4 @@ Call the MakePayment method
 Recomentdations
 =======
 
-Please for secuirity reasons make sure you read your Api key, Api password and Api user from the database
+Please for security reasons make sure you read your Api key, Api password and Api user from the config file
