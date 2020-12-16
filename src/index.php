@@ -15,53 +15,49 @@ class PayUnit
      * @param string $returnUrl Your return Url
      * @param string $amount Clients amount
      */
-    function __construct($apiKey, $apiPassword, $apiUser, $returnUrl, $amount)
+    function __construct($apiKey, $apiPassword, $apiUser, $returnUrl)
     {
         $this->apiKey      = $apiKey;
         $this->apiPassword = $apiPassword;
         $this->apiUser     = $apiUser;
         $this->returnUrl   = $returnUrl;
-        $this->amount      = $amount;
     }
     /**
      * Used to perform the Transaction
      */
-    public function MakePayment()
+    public function MakePayment($amountTobePaid)
     {
         $this->transactionId = uniqid();
         $encodedAuth         = base64_encode($this->apiUser . ":" . $this->apiPassword);
         $postRequest         = array(
-            "bills" => array(
-                array(
-                    "amount" => $this->amount,
-                    "bill_ref" => 360582888
-                )
-            ),
-            "total_amount" => $this->amount,
+            "total_amount" => $amountTobePaid,
             "return_url" => $this->returnUrl,
-            "transaction_id" => $this->transactionId
+            "transaction_id" => $this->transactionId,
+            "description"=> "PayUnit web payments"
         );
         $cURLConnection      = curl_init();
-        curl_setopt($cURLConnection, CURLOPT_URL, "http://192.168.100.70:5000/payments/gateway/initialize");
-        curl_setopt($cURLConnection, CURLOPT_POSTFIELDS, json_encode($postRequest));
-        curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array(
-            "x-api-Key: {$this->apiKey}",
-            "authorization: Basic {$encodedAuth}",
+        curl_setopt($cURLConnection, CURLOPT_URL, "https://app-payunit.sevengps.net/api/gateway/initialize");
+        curl_setopt($cURLConnection, CURLOPT_POSTFIELDS, json_encode($postRequest)); 
+          $secArr =  array(
+            "x-api-key: {$this->apiKey}",
+            "authorization: Basic: {$encodedAuth}",
             'Accept: application/json',
             'Content-Type: application/json'
-        ));
+          );
+        $all =  array_merge($postRequest,$secArr);
+        curl_setopt($cURLConnection, CURLOPT_HTTPHEADER,$all);
         curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
         $apiResponse = curl_exec($cURLConnection);
         curl_close($cURLConnection);
         $jsonArrayResponse = json_decode($apiResponse);
-    if(isset($jsonArrayResponse->transaction_url)){
+    if(isset($jsonArrayResponse->body->transaction_url)){
         echo("dfdgdg");
         //die();
-          header("Location: {$jsonArrayResponse->transaction_url}");
+          header("Location: {$jsonArrayResponse->body->transaction_url}");
         exit();  
     }
     else{
-        echo("Transaction Failed");
+        echo($apiResponse);
     }
     }
 }
