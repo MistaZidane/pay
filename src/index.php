@@ -25,7 +25,7 @@ class PayUnit
     /**
      * Used to perform the Transaction
      */
-    public function MakePayment($amountTobePaid)
+    public function makePayment($amountTobePaid)
     {
         $this->transactionId = uniqid();
         $encodedAuth         = base64_encode($this->apiUser . ":" . $this->apiPassword);
