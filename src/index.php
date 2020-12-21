@@ -31,24 +31,26 @@ class PayUnit
      */
     public function makePayment($amountTobePaid)
     {
+
         $this->transactionId = uniqid();
         $encodedAuth         = base64_encode($this->apiUser . ":" . $this->apiPassword);
         $postRequest         = array(
             "total_amount" => $amountTobePaid,
             "return_url" => $this->returnUrl,
-            "notifyUrl" => $this->notifyUrl,
+            "notify_url" => $this->notifyUrl,
             "transaction_id" => $this->transactionId,
             "description"=> "PayUnit web payments"
         );
+        // http://192.168.100.90:5000/api/gateway/initialize
         $cURLConnection      = curl_init();
-        curl_setopt($cURLConnection, CURLOPT_URL, "https://app-payunit.sevengps.net/api/gateway/initialize");
+        curl_setopt($cURLConnection, CURLOPT_URL, "http://192.168.100.70:5000/api/gateway/initialize");
         curl_setopt($cURLConnection, CURLOPT_POSTFIELDS, json_encode($postRequest)); 
           $secArr =  array(
             "x-api-key: {$this->apiKey}",
             "authorization: Basic: {$encodedAuth}",
             'Accept: application/json',
             'Content-Type: application/json',
-            'mode: {$this->mode}'
+            "mode: {$this->mode}"
           );
         $all =  array_merge($postRequest,$secArr);
         curl_setopt($cURLConnection, CURLOPT_HTTPHEADER,$all);
@@ -56,6 +58,7 @@ class PayUnit
         $apiResponse = curl_exec($cURLConnection);
         curl_close($cURLConnection);
         $jsonArrayResponse = json_decode($apiResponse);
+
     if(isset($jsonArrayResponse->body->transaction_url)){
         echo("dfdgdg");
         //die();
@@ -68,4 +71,3 @@ class PayUnit
     }
 }
 ?>
-
