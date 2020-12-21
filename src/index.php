@@ -8,6 +8,8 @@ class PayUnit
     public $returnUrl;
     public $amount;
     public $transactionId;
+    public $notifyUrl;
+    public $mode;
     /**
      * @param string $apikey Your apikey
      * @param string $apiPassword Your apiPassword
@@ -15,12 +17,14 @@ class PayUnit
      * @param string $returnUrl Your return Url
      * @param string $amount Clients amount
      */
-    function __construct($apiKey, $apiPassword, $apiUser, $returnUrl)
+    function __construct($apiKey, $apiPassword, $apiUser, $returnUrl,$notifyUrl, $mode)
     {
         $this->apiKey      = $apiKey;
         $this->apiPassword = $apiPassword;
         $this->apiUser     = $apiUser;
         $this->returnUrl   = $returnUrl;
+        $this->notifyUrl   = $notifyUrl;
+        $this->mode   = $mode;
     }
     /**
      * Used to perform the Transaction
@@ -32,6 +36,7 @@ class PayUnit
         $postRequest         = array(
             "total_amount" => $amountTobePaid,
             "return_url" => $this->returnUrl,
+            "notifyUrl" => $this->notifyUrl,
             "transaction_id" => $this->transactionId,
             "description"=> "PayUnit web payments"
         );
@@ -42,7 +47,8 @@ class PayUnit
             "x-api-key: {$this->apiKey}",
             "authorization: Basic: {$encodedAuth}",
             'Accept: application/json',
-            'Content-Type: application/json'
+            'Content-Type: application/json',
+            'mode: {$this->mode}'
           );
         $all =  array_merge($postRequest,$secArr);
         curl_setopt($cURLConnection, CURLOPT_HTTPHEADER,$all);
@@ -62,3 +68,4 @@ class PayUnit
     }
 }
 ?>
+
