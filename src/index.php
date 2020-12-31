@@ -41,9 +41,12 @@ class PayUnit
             "transaction_id" => $this->transactionId,
             "description"=> "PayUnit web payments"
         );
-        // http://192.168.100.90:5000/api/gateway/initialize
         $cURLConnection      = curl_init();
-        curl_setopt($cURLConnection, CURLOPT_URL, "http://192.168.100.70:5000/api/gateway/initialize");
+        if($this->mode === "test"){
+          curl_setopt($cURLConnection, CURLOPT_URL, "https://app-payunit.sevengps.net/sandbox/gateway/initialize");
+        }else{
+          curl_setopt($cURLConnection, CURLOPT_URL, "https://app-payunit.sevengps.net/api/gateway/initialize");
+        }
         curl_setopt($cURLConnection, CURLOPT_POSTFIELDS, json_encode($postRequest)); 
           $secArr =  array(
             "x-api-key: {$this->apiKey}",
@@ -58,7 +61,7 @@ class PayUnit
         $apiResponse = curl_exec($cURLConnection);
         curl_close($cURLConnection);
         $jsonArrayResponse = json_decode($apiResponse);
-
+          echo(isset($jsonArrayResponse));
     if(isset($jsonArrayResponse->body->transaction_url)){
         echo("dfdgdg");
         //die();
@@ -71,3 +74,4 @@ class PayUnit
     }
 }
 ?>
+
