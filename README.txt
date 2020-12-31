@@ -26,7 +26,7 @@ Add the PayUnit Namespace in your desired controller
 
 Create a new instance of the PayUnit class and pass in all the required attributes
 
-        $myPayment = New PayUnit("your_api_key","your_api_password","your_api_username","your_end_url");
+        $myPayment = New PayUnit("your_api_key","your_api_password","your_api_username","notify_url","mode");
 
 Call the MakePayment method
 
